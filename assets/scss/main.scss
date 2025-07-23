@@ -1,0 +1,486 @@
+//defaults
+
+// Used in layout
+$padding-1: 1px !default;
+$padding-4: 0.25rem !default;
+$padding-8: 0.5rem !default;
+$padding-16: 1rem !default;
+
+$font-size-base: 16px !default;
+$font-size-12: 0.75rem !default;
+$font-size-14: 0.875rem !default;
+$font-size-16: 1rem !default;
+
+$border-radius: $padding-4 !default;
+
+$body-font-weight: normal !default;
+
+$body-min-width: 20rem !default;
+$container-max-width: 80rem !default;
+
+$menu-width: 16rem !default;
+$toc-width: 16rem !default;
+
+$mobile-breakpoint: $menu-width + $body-min-width * 1.2 + $toc-width !default;
+
+$hint-colors: (
+  info: #6bf,
+  warning: #fd6,
+  danger: #f66,
+) !default;
+
+// Themes
+@mixin theme-light {
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-500: #adb5bd;
+
+  --color-link: #0055bb;
+  --color-visited-link: #8440f1;
+
+  --body-background: white;
+  --body-font-color: black;
+
+  --icon-filter: none;
+
+  --hint-color-info: #6bf;
+  --hint-color-warning: #fd6;
+  --hint-color-danger: #f66;
+}
+
+@mixin theme-dark {
+  --gray-100: #494e54;
+  --gray-200: #5c6165;
+  --gray-500: #999d9f;
+
+  --color-link: #84b2ff;
+  --color-visited-link: #b88dff;
+
+  --body-background: #343a40;
+  --body-font-color: #e9ecef;
+
+  --icon-filter: brightness(0) invert(1);
+
+  --hint-color-info: #6bf;
+  --hint-color-warning: #fd6;
+  --hint-color-danger: #f66;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-even {
+  flex: 1 1;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.mx-auto {
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-small {
+  font-size: .875em;
+}
+
+.hidden {
+  display: none;
+}
+
+input.toggle {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  position: absolute;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@mixin spin($duration) {
+  animation: spin $duration ease infinite;
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@mixin fixed {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@mixin outline {
+  outline-style: auto;
+  outline-color: currentColor;
+  outline-color: -webkit-focus-ring-color;
+}
+
+// @import "variables";
+
+.markdown {
+  line-height: 1.6;
+
+  // remove padding at the beginning of page
+  > :first-child {
+    margin-top: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: normal;
+    line-height: 1;
+    margin-top: 1.5em;
+    margin-bottom: $padding-16;
+
+    a.anchor {
+      opacity: 0;
+      font-size: 0.75em;
+      vertical-align: middle;
+      text-decoration: none;
+    }
+
+    &:hover a.anchor,
+    a.anchor:focus {
+      opacity: initial;
+    }
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-weight: bolder;
+  }
+
+  h5 {
+    font-size: 0.875em;
+  }
+
+  h6 {
+    font-size: 0.75em;
+  }
+
+  b,
+  optgroup,
+  strong {
+    font-weight: bolder;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+    &:visited {
+      color: var(--color-visited-link);
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  code {
+    direction: ltr;
+    unicode-bidi: embed;
+    padding: 0 $padding-4;
+    background: var(--gray-200);
+    border-radius: $border-radius;
+    font-size: 0.875em;
+  }
+
+  pre {
+    direction: ltr;
+    unicode-bidi: embed;
+    padding: $padding-16;
+    background: var(--gray-100);
+    border-radius: $border-radius;
+    overflow-x: auto;
+
+    code {
+      padding: 0;
+      background: none;
+    }
+  }
+
+  p {
+    word-wrap: break-word;
+  }
+
+  blockquote {
+    margin: $padding-16 0;
+    padding: $padding-8 $padding-16 $padding-8 ($padding-16 - $padding-4); //to keep total left space 16dp
+
+    border-inline-start: $padding-4 solid var(--gray-200);
+    border-radius: $border-radius;
+
+    :first-child {
+      margin-top: 0;
+    }
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  table {
+    overflow: auto;
+    display: block;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-top: $padding-16;
+    margin-bottom: $padding-16;
+
+    tr th,
+    tr td {
+      padding: $padding-8 $padding-16;
+      border: $padding-1 solid var(--gray-200);
+    }
+
+    tr:nth-child(2n) {
+      background: var(--gray-100);
+    }
+  }
+
+  hr {
+    height: $padding-1;
+    border: none;
+    background: var(--gray-200);
+  }
+
+  ul,
+  ol {
+    padding-inline-start: $padding-16 * 2;
+    word-wrap: break-word;
+  }
+
+  dl {
+    dt {
+      font-weight: bolder;
+      margin-top: $padding-16;
+    }
+
+    dd {
+      margin-inline-start: 0;
+      margin-bottom: $padding-16;
+    }
+  }
+
+  // Special case for highlighted code with line numbers
+  .highlight {
+    direction: ltr;
+    unicode-bidi: embed;
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    table tr {
+      td pre code > span {
+        display: flex;
+      }
+      
+      td:nth-child(1) pre {
+        margin: 0;
+        padding-inline-end: 0;
+      }
+      td:nth-child(2) pre {
+        margin: 0;
+        padding-inline-start: 0;
+      }
+    }
+  }
+
+  details {
+    padding: $padding-16;
+    border: $padding-1 solid var(--gray-200);
+    border-radius: $border-radius;
+
+    summary {
+      line-height: 1;
+      padding: $padding-16;
+      margin: -$padding-16;
+      cursor: pointer;
+    }
+
+    &[open] summary {
+      margin-bottom: 0;
+    }
+  }
+
+  figure {
+    margin: $padding-16 0;
+    figcaption p {
+      margin-top: 0;
+    }
+  }
+}
+
+.markdown-inner {
+  // Util class to remove extra margin in nested markdown content
+  > :first-child {
+    margin-top: 1rem;
+    margin-right: 1rem;
+  }
+  > :last-child {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+
+//shortcodes
+.markdown {
+  // {{< expand "Label" "icon" >}}
+  .book-expand {
+    margin-top: $padding-16;
+    margin-bottom: $padding-16;
+
+    border: $padding-1 solid var(--gray-200);
+    border-radius: $border-radius;
+
+    overflow: hidden;
+
+    .book-expand-head {
+      background: var(--gray-100);
+      padding: $padding-8 $padding-16;
+      cursor: pointer;
+    }
+
+    .book-expand-content {
+      display: none;
+      padding: $padding-16;
+    }
+
+    input[type="checkbox"]:checked + .book-expand-content {
+      display: block;
+    }
+  }
+
+  // {{< tabs >}}
+  .book-tabs {
+    margin-top: $padding-16;
+    margin-bottom: $padding-16;
+
+    border: $padding-1 solid var(--gray-200);
+    border-radius: $border-radius;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    label {
+      display: inline-block;
+      padding: $padding-8 $padding-16;
+      border-bottom: $padding-1 transparent;
+      cursor: pointer;
+    }
+
+    .book-tabs-content {
+      order: 999; //Move content blocks to the end
+      width: 100%;
+      border-top: $padding-1 solid var(--gray-100);
+      padding: $padding-16;
+      display: none;
+    }
+
+    input[type="radio"]:checked + label {
+      border-bottom: $padding-1 solid var(--color-link);
+    }
+    input[type="radio"]:checked + label + .book-tabs-content {
+      display: block;
+    }
+    input[type="radio"]:focus + label {
+      @include outline;
+    }
+  }
+
+  // {{< columns >}}
+  .book-columns {
+    margin-left: -$padding-16;
+    margin-right: -$padding-16;
+
+    > div {
+      margin: $padding-16 0;
+      min-width: $body-min-width * 0.66;
+      padding: 0 $padding-16;
+    }
+  }
+
+  // {{< button >}}
+  a.book-btn {
+    display: inline-block;
+    font-size: $font-size-14;
+    color: var(--color-link);
+    line-height: $padding-16 * 2;
+    padding: 0 $padding-16;
+    border: $padding-1 solid var(--color-link);
+    border-radius: $border-radius;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  // {{< hint >}}
+  .book-hint {
+    @each $name, $color in $hint-colors {
+      &.#{$name} {
+        border-color: $color;
+        background-color: rgba($color, 0.1);
+      }
+    }
+  }
+}
